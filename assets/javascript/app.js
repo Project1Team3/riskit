@@ -5,15 +5,18 @@
 var map;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: 30.270122, lng: -97.751612 },
+        center: { lat: 41.8986, lng: -87.6628 },
         zoom: 17
     });
 
 
     var marker = new google.maps.Marker({
-        position: { lat: 30.2675544, lng: -97.7406445 },
+        position: { lat: 41.8986, lng: -87.6628 },
         map: map,
-        title: "Bat Bar"
+        title: "Ski Mask Man",
+        animation: google.maps.Animation.DROP,
+        icon: "assets/images/ski-mask.png",
+        draggable: true
     });
     
     marker.setMap(map)
@@ -71,11 +74,15 @@ $.ajax({
     for(i = 0; i < 10; i++){
     console.log(response.features[i]);
     
-    console.log(response.features[i].geometry.coordinates);
-    $(".crime").append(` ${response.features[i].geometry.coordinates} + ${response.features[i].properties.desc} <br>`)
+    console.log(response.features[i].geometry.coordinates[0]);
+    console.log(response.features[i].geometry.coordinates[1]);
+    $(".crime").append(` ${response.features[i].geometry.coordinates}, ${response.features[i].properties.desc},  ${response.features[i].properties.type} <br>`)
     console.log(response.features[i].properties.desc);
     // $(".crime").append(response.features[i].properties.desc)
+
+    
     };
+
     
   });
 
