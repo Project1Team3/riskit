@@ -1,15 +1,19 @@
     
-    /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-       #map {
+/* Always set the map height explicitly to define the size of the div
+* element that contains the map. */
+#map {
         height: 100%;
       }
-      /* Optional: Makes the sample page fill the window. */
+/* Optional: Makes the sample page fill the window. */
       html, body {
-        height: 400px;
+        height: 100%;
         margin: 0;
         padding: 0;
-      }
+      }     
+
+.col-sm-6{
+    height: 100%;
+}
 
 .jumbotron {
     background-image: url("https://static1.wikia.nocookie.net/foodtruck/images/5/50/Wiki-background");
