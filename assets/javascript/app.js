@@ -39,7 +39,7 @@ $.ajax({
     $(".crime").append(` ${response.features[i].geometry.coordinates}, ${response.features[i].properties.desc},  ${response.features[i].properties.type} <br>`)
     console.log(response.features[i].properties.desc);
     // $(".crime").append(response.features[i].properties.desc)
-   // var lat = [];
+   /// var lat = [];
    // lat[i] = response.features[i].geometry.coordinates[1];
   //  var lon = [];
   //  lon[i] = response.features[i].geometry.coordinates[0];
