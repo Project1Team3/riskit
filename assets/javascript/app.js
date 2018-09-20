@@ -15,7 +15,7 @@ function initMap() {
         map: map,
         title: "Ski Mask Man",
         animation: google.maps.Animation.DROP,
-        icon: "assets/images/ski-mask.png",
+       // icon: "assets/images/ski-mask.png",
         draggable: true
     });
     
@@ -23,46 +23,6 @@ function initMap() {
 }
 
 
-
-//CRIMESPOT API
-
-// var request = require('request');
-
-// var baseUrl = "http://api.spotcrime.com/crimes.json";
-// var key = "privatekeyforspotcrimepublicusers-commercialuse-877.410.1607";
-
-// module.exports = function(loc, radius, cb) {
-//   if (typeof radius === 'function') {
-//     cb = radius;
-//     radius = 0.01;
-//   }
-
-//   var rOpt = {
-//     url: baseUrl,
-//     json: true,
-//     qs: {
-//       lat: loc.lat,
-//       lon: loc.lon,
-//       key: key,
-//       radius: radius
-//     }
-//   };
-
-//   request(rOpt, function(err, res, body) {
-//     if (err) return cb(err);
-//     if (!body) return cb(new Error("No response"));
-//     cb(null, body.crimes);
-//   });
-
-// };
-
-// $.ajax({
-//     type: "get",
-//     url: "http://api.spotcrime.com/crimes.json", 
-//     dataType: "jsonp", 
-//     contentType: "application/json", 
-//     success: function(data){console.log(data)}
-// })
 
 let crimeLocation = "lat=41.8986&lon=-87.6628"
 let queryURL = "http://opendata.mybluemix.net/crimes?" + crimeLocation + "&radius=200";
@@ -79,7 +39,20 @@ $.ajax({
     $(".crime").append(` ${response.features[i].geometry.coordinates}, ${response.features[i].properties.desc},  ${response.features[i].properties.type} <br>`)
     console.log(response.features[i].properties.desc);
     // $(".crime").append(response.features[i].properties.desc)
-
+   // var lat = [];
+   // lat[i] = response.features[i].geometry.coordinates[1];
+  //  var lon = [];
+  //  lon[i] = response.features[i].geometry.coordinates[0];
+    var marker = new google.maps.Marker({
+        position: { lat: response.features[i].geometry.coordinates[1], lng: response.features[i].geometry.coordinates[0]},
+        map: map,
+        title: "Ski Mask Man",
+        animation: google.maps.Animation.DROP,
+       // icon: "assets/images/ski-mask.png",
+        draggable: true
+    });
+    
+    marker.setMap(map)
     
     };
 
