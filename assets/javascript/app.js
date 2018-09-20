@@ -9,7 +9,6 @@ var map;
             zoom: 17
         });
 
-        
     }
 
 $(document).ready(function () {
@@ -24,7 +23,7 @@ $(document).ready(function () {
         method: "GET"
     }).then(function (response) {
 
-        for (i = 0; i < 10; i++) {
+        for (i = 0; i < 25; i++) {
             console.log(response.features[i]);
 
             console.log(response.features[i].geometry.coordinates[0]);
