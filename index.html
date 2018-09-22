@@ -1,24 +1,105 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Risk It for the Biscuit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBRfH-akxcws7hTE9M8Kyd9M0AJAQ1A8Aw"></script>
     <script src="assets/javascript/app.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Pacifico|Yanone+Kaffeesatz" rel="stylesheet">
+</head>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOZbaUKbcupSTkUQWYHkNxvd-nchmqG54&callback=initMap"
-    async defer></script>
-  </head>
-  <body>
-      <h1>My Google Map</h1>
-    <div id="map"></div>
-    <div class="crime"></div>
-  
-    
-  </body>
+<body>
+
+    <!--Begin Jumbotron header-->
+    <div class="jumbotron">
+        <div class="container" style="height: 600px;">
+            <h1 class="display-4">Risk it for the Biscuit!</h1>
+            <br>
+            <br>
+            <br>
+            <br>
+            <p class="lead">
+                A<br>
+                dynamic <br>
+                restaurant<br>
+                locator</p>
+        </div>
+    </div>
+    <div id="map"></div>;
+    <!--Begin navbar with drop down-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navigation</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+
+    <!--Bootstrap formatting with containers for api's to load into-->
+    <!--first container for map-->
+
+    <!--columns to load data, easily edited if needed-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+
+                <div class="map">
+                    <p class="column-1">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum rhoncus justo, eu
+                        malesuada turpis consectetur et. Phasellus convallis aliquam nisi, ac ullamcorper diam lobortis
+                        ut. Integer feugiat posuere consectetur. Sed eleifend arcu urna, non condimentum lectus
+                        pulvinar non. Suspendisse viverra maximus erat, non tincidunt leo pharetra rhoncus. Morbi
+                        fringilla commodo faucibus. Pellentesque luctus ultricies nulla. Aenean a justo sapien. In
+                        feugiat mi non tincidunt tincidunt.</p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="crime">
+
+
+                    <p class="column-2">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum rhoncus justo, eu
+                        malesuada turpis consectetur et. Phasellus convallis aliquam nisi, ac ullamcorper diam lobortis
+                        ut. Integer feugiat posuere consectetur. Sed eleifend arcu urna, non condimentum lectus
+                        pulvinar non. Suspendisse viverra maximus erat, non tincidunt leo pharetra rhoncus. Morbi
+                        fringilla commodo faucibus. Pellentesque luctus ultricies nulla. Aenean a justo sapien. In
+                        feugiat mi non tincidunt tincidunt.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+
+
 </html>

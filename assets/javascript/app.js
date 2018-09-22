@@ -1,89 +1,104 @@
-//GOOGLE MAPS API
-//line to create a "New Map". Requires that you pass the DOM, 
-// A "Center" in Lat and Lng, and a zoom level. 
 
+// Google Maps & Places API
 var map;
-function initMap() {
+var infowindow = new google.maps.InfoWindow();
+
+var request;
+var service;
+var markers = [];
+
+
+function initialize() {
+    var center = new google.maps.LatLng(41.8882457, -87.6310917);
     map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: 41.8986, lng: -87.6628 },
+        center: center,
         zoom: 17
     });
 
+    request = {
+        location: center,
+        radius: 30000,
+        types: ['bar', 'restaurant', 'club', 'pub']
+    };
 
-    var marker = new google.maps.Marker({
-        position: { lat: 41.8986, lng: -87.6628 },
-        map: map,
-        title: "Ski Mask Man",
-        animation: google.maps.Animation.DROP,
-        icon: "assets/images/ski-mask.png",
-        draggable: true
-    });
-    
-    marker.setMap(map)
+
+    service = new google.maps.places.PlacesService(map);
+
+    service.nearbySearch(request, callback);
+
+    google.maps.event.addListener(map, 'rightclick', function (event) {
+        map.setCenter(event.latLng)
+        clearResults(markers)
+
+        var request = {
+            location: event.latLng,
+            radius: 30000,
+            types: ['bar', 'restaurant', 'club', 'pub']
+        };
+        service.nearbySearch(request, callback);
+    })
 }
 
+function callback(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+            markers.push(createMarker(results[i]));
+        }
+    }
+}
 
+function createMarker(place) {
+    var placeLoc = place.geometry.location;
+    var marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location
+    });
+    marker.addListener('click', function () {
+        infowindow.open(map, marker);
+        infowindow.setContent(place.name);
+    })
+    return marker;
+}
 
-//CRIMESPOT API
+function clearResults(markers) {
+    for (var m in markers) {
+        markers[m].setMap(null)
+    }
+    markers = [];
+}
 
-// var request = require('request');
+google.maps.event.addDomListener(window, 'load', initialize);
 
-// var baseUrl = "http://api.spotcrime.com/crimes.json";
-// var key = "privatekeyforspotcrimepublicusers-commercialuse-877.410.1607";
+//OPEN CRIME API w/ AJAX Call.
 
-// module.exports = function(loc, radius, cb) {
-//   if (typeof radius === 'function') {
-//     cb = radius;
-//     radius = 0.01;
-//   }
-
-//   var rOpt = {
-//     url: baseUrl,
-//     json: true,
-//     qs: {
-//       lat: loc.lat,
-//       lon: loc.lon,
-//       key: key,
-//       radius: radius
-//     }
-//   };
-
-//   request(rOpt, function(err, res, body) {
-//     if (err) return cb(err);
-//     if (!body) return cb(new Error("No response"));
-//     cb(null, body.crimes);
-//   });
-
-// };
-
-// $.ajax({
-//     type: "get",
-//     url: "http://api.spotcrime.com/crimes.json", 
-//     dataType: "jsonp", 
-//     contentType: "application/json", 
-//     success: function(data){console.log(data)}
-// })
-
-let crimeLocation = "lat=41.8986&lon=-87.6628"
-let queryURL = "http://opendata.mybluemix.net/crimes?" + crimeLocation + "&radius=200";
+let crimeLocation = "lat=41.8882457&lon=-87.6310917"
+let queryURL = "http://opendata.mybluemix.net/crimes?" + crimeLocation + "&radius=500";
 $.ajax({
     url: queryURL,
     method: "GET"
-  }).then(function(response) {
+}).then(function (response) {
 
-    for(i = 0; i < 10; i++){
-    console.log(response.features[i]);
-    
-    console.log(response.features[i].geometry.coordinates[0]);
-    console.log(response.features[i].geometry.coordinates[1]);
-    $(".crime").append(` ${response.features[i].geometry.coordinates}, ${response.features[i].properties.desc},  ${response.features[i].properties.type} <br>`)
-    console.log(response.features[i].properties.desc);
-    // $(".crime").append(response.features[i].properties.desc)
+    for (i = 0; i < 25; i++) {
+        console.log(response.features[i]);
 
-    
+        console.log(response.features[i].geometry.coordinates[0]);
+        console.log(response.features[i].geometry.coordinates[1]);
+        $(".crime").append(` ${response.features[i].geometry.coordinates}, ${response.features[i].properties.desc},  ${response.features[i].properties.type} <br>`)
+        console.log(response.features[i].properties.desc);
+        // $(".crime").append(response.features[i].properties.desc)
+
+        var marker = new google.maps.Marker({
+            position: { lat: response.features[i].geometry.coordinates[1], lng: response.features[i].geometry.coordinates[0] },
+            map: map,
+            title: response.features[i].properties.desc,
+            animation: google.maps.Animation.DROP,
+            icon: "assets/images/robbery.png",
+            draggable: true
+        });
+
+        marker.setMap(map)
+
+
     };
 
-    
-  });
-
-
+});
