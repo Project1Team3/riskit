@@ -49,6 +49,8 @@
         height: 80px;
         width: 100%;
         transition: 0.5s ease;
+        color: #D1001F;
+        font-family: 'Quicksand', sans-serif;
       }
       
       .navbar .nav {
@@ -71,7 +73,6 @@
       
       .navbar .nav .item .contact {
         display: inline-block;
-        background-color: #ffffff;
         height: 40px;
         line-height: 30px;
         padding: 5px;
@@ -84,15 +85,7 @@
         color: inherit;
       }
       
-      .navbar .logo {
-        display: inline-block;
-        margin-top: 5px;
-        margin-left: 5%;
-        width: 70px;
-        height: 70px;
-        background-color: firebrick;
-        transition: 0.5s ease;
-      }
+    
       
       .navbar .logo img {
         display: none;
@@ -104,7 +97,7 @@
       
       .scrolled.navbar {
         height: 50px; 
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: rgba(0, 0, 0, 0.1);
         transition: 0.5s ease;
       
       }
@@ -117,21 +110,10 @@
       
       .scrolled.navbar .nav .item .contact {
         display: inline-block;
-        background-color: #ffffff;
         height: 40px;
         line-height: 30px;
         padding: 5px;
         border-radius: 2px;
-        transition: 0.5s ease;
-      }
-      
-      .scrolled.navbar .logo {
-        display: inline-block;
-        margin-top: 5px;
-        margin-left: 5%;
-        width: 40px;
-        height: 40px;
-        background-color: firebrick;
         transition: 0.5s ease;
       }
       
@@ -177,9 +159,17 @@
     
     }
     
-    .btn {
-        color: black;
+   
+
+  .col-12 {
+      padding: 40px;
+      width: 60px;
+  }
         
     
+<<<<<<< HEAD
+    
+=======
     }
 
+>>>>>>> 012aef5304cb9922e2dec99f3a99c435cb9c92ad

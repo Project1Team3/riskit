@@ -1,3 +1,5 @@
+///navbar JS///
+
 $(document).ready(function() {
     $(window).on('scroll', function() {
       if (Math.round($(window).scrollTop()) > 100) {
@@ -5,9 +7,10 @@ $(document).ready(function() {
       } else {
         $('.navbar').removeClass('scrolled');
       }
-    })
-})
- 
+
+    });
+  });
+///end navbar JS///
 
 
 
