@@ -1,4 +1,3 @@
-
 // Google Maps & Places API
 var map;
 var infowindow = new google.maps.InfoWindow();
