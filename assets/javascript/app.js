@@ -1,13 +1,13 @@
-$(document).ready(function() {
-    $(window).on('scroll', function() {
-      if (Math.round($(window).scrollTop()) > 100) {
-        $('.navbar').addClass('scrolled');
-      } else {
-        $('.navbar').removeClass('scrolled');
-      }
+$(document).ready(function () {
+    $(window).on('scroll', function () {
+        if (Math.round($(window).scrollTop()) > 100) {
+            $('.navbar').addClass('scrolled');
+        } else {
+            $('.navbar').removeClass('scrolled');
+        }
     })
 })
- 
+
 
 
 
@@ -73,11 +73,10 @@ function createMarker(place) {
     return marker;
 }
 google.maps.event.addDomListener(window, 'load', initialize)
-zip();
-//marker();
 
-function zip() {
-    var zip = 60603
+
+$(".zipbutton").on("click", function zip(event) {
+    var zip = $(".zipinput").val().trim()
     let zipURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + zip + "&key=AIzaSyAEbmR9tGPSpWie_laz4e2EBDOIdgGp_gE"
 
     $.ajax({
@@ -95,16 +94,15 @@ function zip() {
         console.log(lng)
         //var lat = 41.8986
         //var lng = -87.6628
+        map.setCenter(new google.maps.LatLng(`${lat}`,`${lng}`));
         var crimeLocation = `lat=${lat}&lon=${lng}`;
         var queryURL = `http://opendata.mybluemix.net/crimes?${crimeLocation}&radius=500`;
-        // var queryURL = "http://opendata.mybluemix.net/crimes?lat=" + lat + "&lon=" + lng + "&radius=500";
         marker(queryURL)
 
     })
-}
+})
 
 function marker(queryURL) {
-    //var queryURL = "http://opendata.mybluemix.net/crimes?" + crimeLocation + "&radius=500";
     $.ajax({
         url: queryURL,
         dataType: "json",
