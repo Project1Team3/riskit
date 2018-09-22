@@ -54,7 +54,6 @@
         margin: 0;
         padding: 0;
         display: inline-block;
-        float: right;
         margin-right: 5%;
       }
       
@@ -85,7 +84,6 @@
       }
       
       .navbar .logo {
-        float: left;
         display: inline-block;
         margin-top: 5px;
         margin-left: 5%;
@@ -127,7 +125,6 @@
       }
       
       .scrolled.navbar .logo {
-        float: left;
         display: inline-block;
         margin-top: 5px;
         margin-left: 5%;
