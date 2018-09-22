@@ -122,9 +122,9 @@ function marker(queryURL) {
             var marker = new google.maps.Marker({
                 position: { lat: response.features[i].geometry.coordinates[1], lng: response.features[i].geometry.coordinates[0] },
                 map: map,
-                title: "Ski Mask Man",
+                title: response.features[i].properties.desc,
                 animation: google.maps.Animation.DROP,
-                //icon: "assets/images/ski-mask.png",
+                icon: "assets/images/robbery.png",
                 draggable: true
             })
 
