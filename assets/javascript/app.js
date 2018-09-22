@@ -5,7 +5,8 @@ $(document).ready(function() {
       } else {
         $('.navbar').removeClass('scrolled');
       }
-    });
+    })
+})
  
 
 
@@ -71,6 +72,7 @@ function createMarker(place) {
     })
     return marker;
 }
+google.maps.event.addDomListener(window, 'load', initialize)
 zip();
 //marker();
 
@@ -130,4 +132,4 @@ function marker(queryURL) {
         }
     })
 }
-});
+//});
