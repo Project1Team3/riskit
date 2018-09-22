@@ -1,27 +1,75 @@
-//GOOGLE MAPS API
-//line to create a "New Map". Requires that you pass the DOM, 
-// A "Center" in Lat and Lng, and a zoom level. 
+$(document).ready(function() {
+    $(window).on('scroll', function() {
+      if (Math.round($(window).scrollTop()) > 100) {
+        $('.navbar').addClass('scrolled');
+      } else {
+        $('.navbar').removeClass('scrolled');
+      }
+    });
+ 
+
+
 
 
 
 var map;
-function initMap() {
+var infowindow = new google.maps.InfoWindow();
+
+var request;
+var service;
+var markers = [];
+
+
+function initialize() {
+    var center = new google.maps.LatLng(41.8882457, -87.6310917);
     map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: 41.8986, lng: -87.6628 },
+        center: center,
         zoom: 17
     });
 
+    request = {
+        location: center,
+        radius: 30000,
+        types: ['bar', 'restaurant', 'club', 'pub']
+    };
 
+
+    service = new google.maps.places.PlacesService(map);
+
+    service.nearbySearch(request, callback);
+
+    google.maps.event.addListener(map, 'rightclick', function (event) {
+        map.setCenter(event.latLng)
+        clearResults(markers)
+
+        var request = {
+            location: event.latLng,
+            radius: 30000,
+            types: ['bar', 'restaurant', 'club', 'pub']
+        };
+        service.nearbySearch(request, callback);
+    })
+}
+
+function callback(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+            markers.push(createMarker(results[i]));
+        }
+    }
+}
+
+function createMarker(place) {
+    var placeLoc = place.geometry.location;
     var marker = new google.maps.Marker({
-        position: { lat: 41.8986, lng: -87.6628 },
         map: map,
-        title: "Ski Mask Man",
-        animation: google.maps.Animation.DROP,
-        //icon: "assets/images/ski-mask.png",
-        draggable: true
+        position: place.geometry.location
     });
-
-    marker.setMap(map)
+    marker.addListener('click', function () {
+        infowindow.open(map, marker);
+        infowindow.setContent(place.name);
+    })
+    return marker;
 }
 zip();
 //marker();
@@ -82,3 +130,4 @@ function marker(queryURL) {
         }
     })
 }
+});
