@@ -1,3 +1,5 @@
+///navbar JS///
+
 $(document).ready(function() {
     $(window).on('scroll', function() {
       if (Math.round($(window).scrollTop()) > 100) {
@@ -7,7 +9,7 @@ $(document).ready(function() {
       }
     });
   });
-
+///end navbar JS///
 
 
 
