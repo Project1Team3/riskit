@@ -1,52 +1,51 @@
-    
 /* Always set the map height explicitly to define the size of the div
 * element that contains the map. */
 #map {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
 /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }     
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }     
 
 .col-sm-6{
-    height: 100%;
+height: 100%;
 }
 
 .jumbotron {
-    background-image: url("https://static1.wikia.nocookie.net/foodtruck/images/5/50/Wiki-background");
-    background-repeat: no-repeat;
-    background-size: cover;
+background-image: url("https://static1.wikia.nocookie.net/foodtruck/images/5/50/Wiki-background");
+background-repeat: no-repeat;
+background-size: cover;
 
 }
 
 .display-4 { 
-    font-family: 'Pacifico', cursive;
-    color: #D1001F;
-    text-shadow: 10px;
-    font-size: 80px;
-    text-align: center;
+font-family: 'Pacifico', cursive;
+color: #D1001F;
+text-shadow: 10px;
+font-size: 80px;
+text-align: center;
 
 
 }
 
 p.lead {
-    font-family: 'Bungee Shade', cursive;
-    color: white;
-    outline-color: white;
-    font-weight: bold;
-    font-size: 36px;
-    text-shadow: 6px;
-    text-align: center;
+font-family: 'Bungee Shade', cursive;
+color: white;
+outline-color: white;
+font-weight: bold;
+font-size: 36px;
+text-shadow: 6px;
+text-align: center;
 
 }
 
 .btn {
-    color: black;
-    
+color: black;
+
 
 }
