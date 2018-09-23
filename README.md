@@ -12,7 +12,7 @@ Project #1 - Group 3
   * Allows Users to provide Food & Safety Review of anywhere they are at. 
 
 - What is the goal of this project?
-  * Culmination of everything learned in BootCamp so far. JavaScript and jQuery to make API calls, Persistance through Firebase. 
+  * Culmination of everything learned in BootCamp so far. HTML/CSS/JavaScript and jQuery to make API calls. Maintaining persistance through Firebase. 
   
 - What is the direct link to the project?
   * The game is hosted here: [riskit](https://project1team3.github.io/riskit//).

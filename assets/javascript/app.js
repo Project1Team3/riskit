@@ -177,21 +177,34 @@ $.ajax({
         </tr>
         `);
 
-
         var marker = new google.maps.Marker({
             position: { lat: response.features[i].geometry.coordinates[1], lng: response.features[i].geometry.coordinates[0] },
             map: map,
             title: response.features[i].properties.desc,
+            content: response.features[i].properties.desc,
             animation: google.maps.Animation.DROP,
             icon: crimeIcons(response.features[i].properties.type),
-            draggable: true
+            draggable: true,
         });
 
-        marker.setMap(map)
 
+        //This is almost working! 
+        var infowindow = new google.maps.InfoWindow({
+            content: response.features[i].properties.desc
+          });
 
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+
+        marker.setMap(map);
+
+        
     };
+
 });
+
+
 
 //Switch statement for assigning crime icons to Ajax call codes
 function crimeIcons(crimeID) {
