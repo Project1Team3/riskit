@@ -119,8 +119,19 @@ function marker(queryURL) {
 
             console.log(response.features[i].geometry.coordinates[0]);
             console.log(response.features[i].geometry.coordinates[1]);
-            $(".crime").append(` ${response.features[i].geometry.coordinates}, ${response.features[i].properties.desc},  ${response.features[i].properties.type} <br>`)
-            console.log(response.features[i].properties.desc);
+
+            // $(".crime").append(` ${response.features[i].geometry.coordinates}, ${response.features[i].properties.desc},  ${response.features[i].properties.type} <br>`)
+            // console.log(response.features[i].properties.desc);
+
+        $(".table").append(`
+        <tr>
+        <th scope="row">${response.features[i].properties.type}</th>
+        <td><img src=${crimeIcons(response.features[i].properties.type)}></td>
+        <td>${response.features[i].properties.desc}</td>
+        <td>${response.features[i].geometry.coordinates}</td>
+        </tr>
+        `);
+
             // $(".crime").append(response.features[i].properties.desc)
             var marker = new google.maps.Marker({
                 position: { lat: response.features[i].geometry.coordinates[1], lng: response.features[i].geometry.coordinates[0] },
@@ -150,9 +161,20 @@ $.ajax({
         console.log(response.features[i]);
         console.log(response.features[i].geometry.coordinates[0]);
         console.log(response.features[i].geometry.coordinates[1]);
-        $(".crime").append(` ${response.features[i].geometry.coordinates}, ${response.features[i].properties.desc},  ${response.features[i].properties.type} <br>`)
-        console.log(response.features[i].properties.desc);
-        // $(".crime").append(response.features[i].properties.desc)
+
+
+        // $(".crime").append(` ${response.features[i].geometry.coordinates}, ${response.features[i].properties.desc},  ${response.features[i].properties.type} <br>`)
+        // console.log(response.features[i].properties.desc);
+
+        $(".table").append(`
+        <tr>
+        <th scope="row">${response.features[i].properties.type}</th>
+        <td><img src=${crimeIcons(response.features[i].properties.type)}></td>
+        <td>${response.features[i].properties.desc}</td>
+        <td>${response.features[i].geometry.coordinates}</td>
+        </tr>
+        `);
+
 
         var marker = new google.maps.Marker({
             position: { lat: response.features[i].geometry.coordinates[1], lng: response.features[i].geometry.coordinates[0] },
@@ -200,8 +222,8 @@ var config = {
     projectId: "riskit-1537281695115",
     storageBucket: "riskit-1537281695115.appspot.com",
     messagingSenderId: "331530995468"
-  };
-  firebase.initializeApp(config)
+};
+firebase.initializeApp(config)
 
 // Create a variable to reference the database.
 var database = firebase.database();

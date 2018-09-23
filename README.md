@@ -15,6 +15,6 @@ Project #1 - Group 3
   * Culmination of everything learned in BootCamp so far. JavaScript and jQuery to make API calls, Persistance through Firebase. 
   
 - What is the direct link to the project?
-  * The game is hosted here: [TriviaGame](https://joseaphmankin.github.io/TriviaGame/).
+  * The game is hosted here: [riskit](https://joseaphmankin.github.io/TriviaGame/).
 
  
