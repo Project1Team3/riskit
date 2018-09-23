@@ -8,6 +8,7 @@ $(document).ready(function () {
     })
 })
 
+//Global Variables. Required for Map
 var map;
 var infowindow = new google.maps.InfoWindow();
 
@@ -22,14 +23,15 @@ let shootingIcon = "assets/images/shooting.png";
 let crimeIcon = "assets/images/crimescene.png";
 let bombIcon = "assets/images/bomb.png";
 let skullIcon = "assets/images/pirates.png"
+let knotIcon = "assets/images/knottemplate.png"
 
 
-
+//Loads the Map screen w/ places request for Bars, Restaurants, Club and Pubs.
 function initialize() {
     var center = new google.maps.LatLng(41.8817767, -87.6393348);
     map = new google.maps.Map(document.getElementById('map'), {
         center: center,
-        zoom: 17
+        zoom: 18
     });
 
     request = {
@@ -123,7 +125,7 @@ function marker(queryURL) {
             // $(".crime").append(` ${response.features[i].geometry.coordinates}, ${response.features[i].properties.desc},  ${response.features[i].properties.type} <br>`)
             // console.log(response.features[i].properties.desc);
 
-        $(".table").append(`
+            $(".table").prepend(`
         <tr>
         <th scope="row">${response.features[i].properties.type}</th>
         <td><img src=${crimeIcons(response.features[i].properties.type)}></td>
@@ -147,7 +149,7 @@ function marker(queryURL) {
     })
 }
 
-//INITIAL OPEN CRIME API w/ AJAX Call. 
+//INITIAL OPEN CRIME API w/ AJAX Call for first time load. 
 
 let crimeLocation = "lat=41.8817767&lon=-87.6393348";
 let queryURL = "http://opendata.mybluemix.net/crimes?" + crimeLocation + "&radius=500";
@@ -166,7 +168,7 @@ $.ajax({
         // $(".crime").append(` ${response.features[i].geometry.coordinates}, ${response.features[i].properties.desc},  ${response.features[i].properties.type} <br>`)
         // console.log(response.features[i].properties.desc);
 
-        $(".table").append(`
+        $(".table").prepend(`
         <tr>
         <th scope="row">${response.features[i].properties.type}</th>
         <td><img src=${crimeIcons(response.features[i].properties.type)}></td>
@@ -201,8 +203,14 @@ function crimeIcons(crimeID) {
         case "06":
             return theftIcon;
             break;
+        case "07":
+            return theftIcon;
+            break;
         case "08B":
             return robberyIcon;
+            break;
+        case "11":
+            return knotIcon;
             break;
         case "26":
             return skullIcon;
