@@ -177,7 +177,7 @@ $.ajax({
         </tr>
         `);
 
-        var marker = new google.maps.Marker({
+        let marker = new google.maps.Marker({
             position: { lat: response.features[i].geometry.coordinates[1], lng: response.features[i].geometry.coordinates[0] },
             map: map,
             title: response.features[i].properties.desc,
@@ -187,13 +187,12 @@ $.ajax({
             draggable: true,
         });
 
-
-        //This is almost working! 
-        var infowindow = new google.maps.InfoWindow({
-            content: response.features[i].properties.desc
-          });
+        let desc = response.features[i].properties.desc 
 
           marker.addListener('click', function() {
+            let infowindow = new google.maps.InfoWindow({
+                content: desc
+              });              
             infowindow.open(map, marker);
           });
 
