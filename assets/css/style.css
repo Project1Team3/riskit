@@ -1,8 +1,11 @@
-    
-    /* Always set the map height explicitly to define the size of the div
+/* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
        #map {
-        height: 100%;
+        height: 35%;
+        width: 100%;
+        margin: 10px;
+        border: solid 3px red;
+        border-radius: 5px;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -10,7 +13,6 @@
         margin: 0;
         padding: 0;
       }
-
 
       *{
         box-sizing: border-box;
@@ -166,10 +168,3 @@
       width: 60px;
   }
         
-    
-<<<<<<< HEAD
-    
-=======
-    }
-
->>>>>>> 012aef5304cb9922e2dec99f3a99c435cb9c92ad
