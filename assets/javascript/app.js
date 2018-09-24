@@ -129,22 +129,31 @@ function marker(queryURL) {
         <tr>
         <th scope="row">${response.features[i].properties.type}</th>
         <td><img src=${crimeIcons(response.features[i].properties.type)}></td>
-        <td>${response.features[i].properties.desc}</td>
+        <td>${textFormatter(response.features[i].properties.desc)}</td>
         <td>${response.features[i].geometry.coordinates}</td>
         </tr>
         `);
 
-            // $(".crime").append(response.features[i].properties.desc)
-            var marker = new google.maps.Marker({
-                position: { lat: response.features[i].geometry.coordinates[1], lng: response.features[i].geometry.coordinates[0] },
-                map: map,
-                title: response.features[i].properties.desc,
-                animation: google.maps.Animation.DROP,
-                icon: crimeIcons(response.features[i].properties.type),
-                draggable: true
-            })
+        let marker = new google.maps.Marker({
+            position: { lat: response.features[i].geometry.coordinates[1], lng: response.features[i].geometry.coordinates[0] },
+            map: map,
+            title: response.features[i].properties.desc,
+            content: response.features[i].properties.desc,
+            animation: google.maps.Animation.DROP,
+            icon: crimeIcons(response.features[i].properties.type),
+            draggable: true,
+        });
 
-            marker.setMap(map)
+        let desc = response.features[i].properties.desc 
+
+          marker.addListener('click', function() {
+            let infowindow = new google.maps.InfoWindow({
+                content: desc
+              });              
+            infowindow.open(map, marker);
+          });
+
+        marker.setMap(map);
         }
     })
 }
@@ -172,7 +181,7 @@ $.ajax({
         <tr>
         <th scope="row">${response.features[i].properties.type}</th>
         <td><img src=${crimeIcons(response.features[i].properties.type)}></td>
-        <td>${response.features[i].properties.desc}</td>
+        <td>${textFormatter(response.features[i].properties.desc)}</td>
         <td>${response.features[i].geometry.coordinates}</td>
         </tr>
         `);
@@ -231,6 +240,12 @@ function crimeIcons(crimeID) {
             return crimeIcon;
     }
 }
+
+function textFormatter(desc){
+
+    return desc.replace(">", " (") + ")";
+
+};
 
 //Comment Cards connected to FireBase
 
