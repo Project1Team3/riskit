@@ -44,15 +44,20 @@ function initialize() {
 
     service.nearbySearch(request, callback);
 
-    google.maps.event.addListener(map, 'rightclick', function (event) {
+    google.maps.event.addListener(map, 'click', function (event) {
         map.setCenter(event.latLng)
-        clearResults(markers)
-
+        //clearResults(markers)
+        var lat = event.latLng.lat();
+        var lng =  event.latLng.lng();
+        console.log(event.latLng)
         var request = {
             location: event.latLng,
             radius: 30000,
             types: ['bar', 'restaurant', 'club', 'pub']
         };
+        var crimeLocation = `lat=${lat}&lon=${lng}`;
+        var queryURL = `http://opendata.mybluemix.net/crimes?${crimeLocation}&radius=500`;
+        marker(queryURL)
         service.nearbySearch(request, callback);
     })
 }
@@ -82,7 +87,7 @@ google.maps.event.addDomListener(window, 'load', initialize)
 
 //ZIP CODE BUTTON RECENTER AND AJAX CALL
 
-$(".zipbutton").on("click", function zip(event) {
+$(".zipbutton").on("click keyup", function zip(event) {
     var zip = $(".zipinput").val().trim()
     let zipURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + zip + "&key=AIzaSyAEbmR9tGPSpWie_laz4e2EBDOIdgGp_gE"
 
