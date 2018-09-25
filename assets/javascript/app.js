@@ -136,7 +136,6 @@ function marker(queryURL) {
         <th scope="row">${response.features[i].properties.type}</th>
         <td><img src=${crimeIcons(response.features[i].properties.type)}></td>
         <td>${textFormatter(response.features[i].properties.desc)}</td>
-        <td>${response.features[i].geometry.coordinates}</td>
         </tr>
         `);
         
@@ -199,7 +198,6 @@ $.ajax({
         <th scope="row">${response.features[i].properties.type}</th>
         <td><img src=${crimeIcons(response.features[i].properties.type)}></td>
         <td>${textFormatter(response.features[i].properties.desc)}</td>
-        <td>${response.features[i].geometry.coordinates}</td>
         </tr>
         `);
 
