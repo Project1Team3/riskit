@@ -144,7 +144,7 @@ function marker(queryURL) {
             draggable: true,
         });
 
-        let desc = response.features[i].properties.desc 
+        let desc = textFormatter(response.features[i].properties.desc)
 
           marker.addListener('click', function() {
             let infowindow = new google.maps.InfoWindow({
@@ -194,13 +194,15 @@ $.ajax({
             animation: google.maps.Animation.DROP,
             icon: crimeIcons(response.features[i].properties.type),
             draggable: true,
+            opacity: .7
         });
 
-        let desc = response.features[i].properties.desc 
+        let desc = textFormatter(response.features[i].properties.desc)
 
           marker.addListener('click', function() {
             let infowindow = new google.maps.InfoWindow({
-                content: desc
+                content: desc,
+                
               });              
             infowindow.open(map, marker);
           });
