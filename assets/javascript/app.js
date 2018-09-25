@@ -205,11 +205,7 @@ $.ajax({
             content: response.features[i].properties.desc,
             animation: google.maps.Animation.DROP,
             icon: crimeIcons(response.features[i].properties.type),
-<<<<<<< HEAD
-            draggable: true,
-=======
             draggable: false,
->>>>>>> d9884762840251831c9789076ed24f86983e7a90
             opacity: .7
         });
 
@@ -217,8 +213,7 @@ $.ajax({
 
           marker.addListener('click', function() {
             let infowindow = new google.maps.InfoWindow({
-                content: desc,
-                
+                content: desc
               });              
             infowindow.open(map, marker);
           });
