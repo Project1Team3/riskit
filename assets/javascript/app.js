@@ -44,15 +44,20 @@ function initialize() {
 
     service.nearbySearch(request, callback);
 
-    google.maps.event.addListener(map, 'rightclick', function (event) {
+    google.maps.event.addListener(map, 'click', function (event) {
         map.setCenter(event.latLng)
-        clearResults(markers)
-
+        //clearResults(markers)
+        var lat = event.latLng.lat();
+        var lng =  event.latLng.lng();
+        console.log(event.latLng)
         var request = {
             location: event.latLng,
             radius: 30000,
             types: ['bar', 'restaurant', 'club', 'pub']
         };
+        var crimeLocation = `lat=${lat}&lon=${lng}`;
+        var queryURL = `https://opendata.mybluemix.net/crimes?${crimeLocation}&radius=500`;
+        marker(queryURL)
         service.nearbySearch(request, callback);
     })
 }
@@ -82,7 +87,7 @@ google.maps.event.addDomListener(window, 'load', initialize)
 
 //ZIP CODE BUTTON RECENTER AND AJAX CALL
 
-$(".zipbutton").on("click", function zip(event) {
+$(".zipbutton").on("click keyup", function zip(event) {
     var zip = $(".zipinput").val().trim()
     let zipURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + zip + "&key=AIzaSyAEbmR9tGPSpWie_laz4e2EBDOIdgGp_gE"
 
@@ -103,7 +108,7 @@ $(".zipbutton").on("click", function zip(event) {
         //var lng = -87.6628
         map.setCenter(new google.maps.LatLng(`${lat}`, `${lng}`));
         var crimeLocation = `lat=${lat}&lon=${lng}`;
-        var queryURL = `http://opendata.mybluemix.net/crimes?${crimeLocation}&radius=500`;
+        var queryURL = `https://opendata.mybluemix.net/crimes?${crimeLocation}&radius=500`;
         marker(queryURL)
 
     })
@@ -131,7 +136,6 @@ function marker(queryURL) {
         <th scope="row">${response.features[i].properties.type}</th>
         <td><img src=${crimeIcons(response.features[i].properties.type)}></td>
         <td>${textFormatter(response.features[i].properties.desc)}</td>
-        <td>${response.features[i].geometry.coordinates}</td>
         </tr>
         `);
         
@@ -171,7 +175,7 @@ function marker(queryURL) {
 //INITIAL OPEN CRIME API w/ AJAX Call for first time load. 
 
 let crimeLocation = "lat=41.8817767&lon=-87.6393348";
-let queryURL = "http://opendata.mybluemix.net/crimes?" + crimeLocation + "&radius=500";
+let queryURL = "https://opendata.mybluemix.net/crimes?" + crimeLocation + "&radius=500";
 $.ajax({
     url: queryURL,
     method: "GET"
@@ -194,7 +198,6 @@ $.ajax({
         <th scope="row">${response.features[i].properties.type}</th>
         <td><img src=${crimeIcons(response.features[i].properties.type)}></td>
         <td>${textFormatter(response.features[i].properties.desc)}</td>
-        <td>${response.features[i].geometry.coordinates}</td>
         </tr>
         `);
 
