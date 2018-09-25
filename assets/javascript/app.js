@@ -116,6 +116,7 @@ function marker(queryURL) {
         method: "GET"
     }).then(function (response) {
         /*response.features.length*/
+        let heatmapData = []
         for (i = 0; i < 50; i++) {
             console.log(response.features[i]);
 
@@ -133,7 +134,9 @@ function marker(queryURL) {
         <td>${response.features[i].geometry.coordinates}</td>
         </tr>
         `);
-
+        
+          heatmapData.push({location: new google.maps.LatLng(response.features[i].geometry.coordinates[1], response.features[i].geometry.coordinates[0]), weight: 1})
+          
         let marker = new google.maps.Marker({
             position: { lat: response.features[i].geometry.coordinates[1], lng: response.features[i].geometry.coordinates[0] },
             map: map,
@@ -141,10 +144,11 @@ function marker(queryURL) {
             content: response.features[i].properties.desc,
             animation: google.maps.Animation.DROP,
             icon: crimeIcons(response.features[i].properties.type),
-            draggable: true,
+            draggable: false,
+            opacity: .7
         });
 
-        let desc = response.features[i].properties.desc 
+        let desc = textFormatter(response.features[i].properties.desc)
 
           marker.addListener('click', function() {
             let infowindow = new google.maps.InfoWindow({
@@ -155,6 +159,12 @@ function marker(queryURL) {
 
         marker.setMap(map);
         }
+        var heatmap = new google.maps.visualization.HeatmapLayer({
+            data: heatmapData,
+            radius: 150,
+            opacity: .35
+          });
+          heatmap.setMap(map);
     })
 }
 
@@ -166,6 +176,7 @@ $.ajax({
     url: queryURL,
     method: "GET"
 }).then(function (response) {
+    let heatmapData = []
 
     for (i = 0; i < 10; i++) {
         console.log(response.features[i].properties.type);
@@ -173,6 +184,7 @@ $.ajax({
         console.log(response.features[i].geometry.coordinates[0]);
         console.log(response.features[i].geometry.coordinates[1]);
 
+        heatmapData.push({location: new google.maps.LatLng(response.features[i].geometry.coordinates[1], response.features[i].geometry.coordinates[0]), weight: 1})
 
         // $(".crime").append(` ${response.features[i].geometry.coordinates}, ${response.features[i].properties.desc},  ${response.features[i].properties.type} <br>`)
         // console.log(response.features[i].properties.desc);
@@ -193,10 +205,11 @@ $.ajax({
             content: response.features[i].properties.desc,
             animation: google.maps.Animation.DROP,
             icon: crimeIcons(response.features[i].properties.type),
-            draggable: true,
+            draggable: false,
+            opacity: .7
         });
 
-        let desc = response.features[i].properties.desc 
+        let desc = textFormatter(response.features[i].properties.desc)
 
           marker.addListener('click', function() {
             let infowindow = new google.maps.InfoWindow({
@@ -209,7 +222,12 @@ $.ajax({
 
         
     };
-
+    var heatmap = new google.maps.visualization.HeatmapLayer({
+        data: heatmapData,
+        radius: 150,
+        opacity: .35
+      });
+      heatmap.setMap(map);
 });
 
 
