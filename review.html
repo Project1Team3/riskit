@@ -1,49 +1,66 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Risk It for the Biscuit</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <script src="https://code.jquery.com/jquery.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBRfH-akxcws7hTE9M8Kyd9M0AJAQ1A8Aw"></script>
-  <link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Pacifico|Yanone+Kaffeesatz" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Risk It for the Biscuit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Pacifico|Yanone+Kaffeesatz" rel="stylesheet">
 </head>
 
 <body>
 
     <header>
-        
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
+
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <!-- <a class="navbar-brand" href="#"></a> -->
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navCollapse">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarText">
-                  <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="review.html">Submit A Review</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="contact.html">Contact</a>
-                    </li>
-                  </ul>
-                  <span class="navbar-text">
-                    Risk It For The Biscuit!
-                  </span>
+
+                <div class="collapse navbar-collapse" id="navCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="review.html">Submit A Review</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                    </ul>
+                    <span class="navbar-text">
+                        Risk It For The Biscuit!
+                    </span>
                 </div>
-              </nav>
+            </nav>
+
+        </div>
 
 
     </header>
+
+    <table class="table review">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Place</th>
+                    <th scope="col">Food</th>
+                    <th scope="col">Danger</th>
+                    <th scope="col">Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+                </tr>
+            </tbody>
+        </table>
   
 
   <div class="row">
@@ -86,7 +103,10 @@
   
         <!-- Most Recent Review Card -->
         <div class="col-lg-6">
-          <div class="card card-default">
+
+            <img src="assets/images/burglartaco.png" alt="TacoBurgler">
+
+          <!-- <div class="card card-default">
             <div class="card-header">
               Most Recent Review
             </div>
@@ -98,14 +118,22 @@
               <p id="comment-display">Got jacked and stabbed, but dem tacos tho!. Risk IT!</p>
             </div>
           </div>
-        </div>
+        </div> -->
   
       </div>
 
     </div>
 
    
-
-  <script src="assets/javascript/app.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places,visualization&key=AIzaSyBRfH-akxcws7hTE9M8Kyd9M0AJAQ1A8Aw"></script>
+    <script src="assets/javascript/app.js"></script>
 </body>
+
 </html>

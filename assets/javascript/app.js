@@ -85,9 +85,15 @@ function createMarker(place) {
 google.maps.event.addDomListener(window, 'load', initialize)
 
 
-//ZIP CODE BUTTON RECENTER AND AJAX CALL
+//ZIP CODE BUTTON RECENTER AND AJAX CALL. Also Keyup for just hitting enter.
 
-$(".zipbutton").on("click keyup", function zip(event) {
+$("#submit").keyup(function(event){
+    if(event.keyCode === 13){
+        $(".zipbutton").click();
+    }
+});
+
+$(".zipbutton").on("click", function zip(event) {
     var zip = $(".zipinput").val().trim()
     let zipURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + zip + "&key=AIzaSyAEbmR9tGPSpWie_laz4e2EBDOIdgGp_gE"
 
@@ -131,7 +137,7 @@ function marker(queryURL) {
             // $(".crime").append(` ${response.features[i].geometry.coordinates}, ${response.features[i].properties.desc},  ${response.features[i].properties.type} <br>`)
             // console.log(response.features[i].properties.desc);
 
-            $(".table").prepend(`
+            $(".crimeTable").prepend(`
         <tr>
         <th scope="row">${response.features[i].properties.type}</th>
         <td><img src=${crimeIcons(response.features[i].properties.type)}></td>
@@ -193,7 +199,7 @@ $.ajax({
         // $(".crime").append(` ${response.features[i].geometry.coordinates}, ${response.features[i].properties.desc},  ${response.features[i].properties.type} <br>`)
         // console.log(response.features[i].properties.desc);
 
-        $(".table").prepend(`
+        $(".crimeTable").prepend(`
         <tr>
         <th scope="row">${response.features[i].properties.type}</th>
         <td><img src=${crimeIcons(response.features[i].properties.type)}></td>
@@ -321,6 +327,18 @@ database.ref("/users").on("child_added", function (snapshot) {
     $("#danger-display").text(sv.danger);
     $("#comment-display").text(sv.comment);
 
+    //for the Review table
+    $(".review").append(`
+      <tr>
+      <th scope="row">${sv.name}</th>
+      <td>${sv.place}</td>
+      <td>${sv.food}</td>
+      <td>${sv.danger}</td>
+      <td>${sv.comment}</td>
+      
+  </tr>
+`);
+
     // Handle the errors
 }, function (errorObject) {
     console.log("Errors handled: " + errorObject.code);
@@ -332,3 +350,12 @@ $("#place-display").text(localStorage.getItem("place"));
 $("#food-display").text(localStorage.getItem("food"));
 $("#danger-display").text(localStorage.getItem("danger"));
 $("#comment-display").text(localStorage.getItem("comment"));
+
+
+//Link to grap values, add to the A tag and load into mailer.
+$("#mailer").click(function(){
+    let name = $("#name").val();
+    let message = $("#message").val();
+    let email = $("#inputEmail").val();
+    $(this).attr("href", `mailto:joepathetic@yahoo.com?subject=${name}&body=${message}<br> From: ${email}`)
+});
