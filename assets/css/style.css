@@ -51,7 +51,6 @@
         height: 80px;
         width: 100%;
         transition: 0.5s ease;
-        color: #D1001F;
         color: grey;
         opacity: 0.4;
       }
@@ -194,7 +193,7 @@
   font-family: 'Pacifico', cursive;
   color: #D1001F;
   font-size: 24px;
-  
+
 }
 
 .form-group {
