@@ -1,13 +1,3 @@
-$(document).ready(function () {
-    $(window).on('scroll', function () {
-        if (Math.round($(window).scrollTop()) > 100) {
-            $('.navbar').addClass('scrolled');
-        } else {
-            $('.navbar').removeClass('scrolled');
-        }
-    })
-})
-
 //Global Variables. Required for Map
 var map;
 var infowindow = new google.maps.InfoWindow();
@@ -15,6 +5,8 @@ var infowindow = new google.maps.InfoWindow();
 var request;
 var service;
 var markers = [];
+var heatmaps = [];
+var crimeID = [];
 
 //VARs for all the crime icons
 let robberyIcon = "assets/images/robbery.png";
@@ -48,7 +40,7 @@ function initialize() {
         map.setCenter(event.latLng)
         //clearResults(markers)
         var lat = event.latLng.lat();
-        var lng =  event.latLng.lng();
+        var lng = event.latLng.lng();
         console.log(event.latLng)
         var request = {
             location: event.latLng,
@@ -60,7 +52,30 @@ function initialize() {
         marker(queryURL)
         service.nearbySearch(request, callback);
     })
+    
 }
+function clearMarkers(){
+    for(i = 0; i < markers.length; i++){
+        markers[i].setMap(null);
+    }
+
+}
+function showMarkers() {
+    for(i = 0; i < markers.length; i++){
+        markers[i].setMap(map);
+    }
+  }
+
+  // Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+    clearMarkers();
+    markers = [];
+    for(i = 0; i < heatmaps.length; i++){
+        heatmaps[i].setMap(null)
+    }
+    heatmaps = [];
+    crimeID = [];
+  }
 
 function callback(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -85,27 +100,29 @@ function createMarker(place) {
 google.maps.event.addDomListener(window, 'load', initialize)
 
 
-//ZIP CODE BUTTON RECENTER AND AJAX CALL
+//ZIP CODE BUTTON RECENTER AND AJAX CALL. Also Keyup for just hitting enter.
 
-$(".zipbutton").on("click keyup", function zip(event) {
+$("#submit").keyup(function (event) {
+    if (event.keyCode === 13) {
+        $(".zipbutton").click();
+    }
+});
+
+$(".zipbutton").on("click", function zip(event) {
     var zip = $(".zipinput").val().trim()
     let zipURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + zip + "&key=AIzaSyAEbmR9tGPSpWie_laz4e2EBDOIdgGp_gE"
 
     $.ajax({
         url: zipURL,
-        //dataType: "json",
         method: "GET"
     }).then(function (response) {
-        // var json = $.parseJSON(response)
         console.log(response)
         var lat = response.results[0].geometry.location.lat;
         var lng = response.results[0].geometry.location.lng;
         lat = lat.toFixed(4);
-        lng = lng.toFixed(4)
+        lng = lng.toFixed(4);
         console.log(lat)
         console.log(lng)
-        //var lat = 41.8986
-        //var lng = -87.6628
         map.setCenter(new google.maps.LatLng(`${lat}`, `${lng}`));
         var crimeLocation = `lat=${lat}&lon=${lng}`;
         var queryURL = `https://opendata.mybluemix.net/crimes?${crimeLocation}&radius=500`;
@@ -121,119 +138,59 @@ function marker(queryURL) {
         method: "GET"
     }).then(function (response) {
         /*response.features.length*/
-        let heatmapData = []
+        var heatmapData = []
+        
         for (i = 0; i < 50; i++) {
             console.log(response.features[i]);
-
             console.log(response.features[i].geometry.coordinates[0]);
             console.log(response.features[i].geometry.coordinates[1]);
-
-            // $(".crime").append(` ${response.features[i].geometry.coordinates}, ${response.features[i].properties.desc},  ${response.features[i].properties.type} <br>`)
-            // console.log(response.features[i].properties.desc);
-
-            $(".table").prepend(`
+            $(".crimeTable").prepend(`
         <tr>
         <th scope="row">${response.features[i].properties.type}</th>
         <td><img src=${crimeIcons(response.features[i].properties.type)}></td>
         <td>${textFormatter(response.features[i].properties.desc)}</td>
         </tr>
         `);
-        
-          heatmapData.push({location: new google.maps.LatLng(response.features[i].geometry.coordinates[1], response.features[i].geometry.coordinates[0]), weight: 1})
-          
-        let marker = new google.maps.Marker({
-            position: { lat: response.features[i].geometry.coordinates[1], lng: response.features[i].geometry.coordinates[0] },
-            map: map,
-            title: response.features[i].properties.desc,
-            content: response.features[i].properties.desc,
-            animation: google.maps.Animation.DROP,
-            icon: crimeIcons(response.features[i].properties.type),
-            draggable: false,
-            opacity: .7
-        });
 
-        let desc = textFormatter(response.features[i].properties.desc)
+            heatmapData.push({ location: new google.maps.LatLng(response.features[i].geometry.coordinates[1], response.features[i].geometry.coordinates[0]), weight: 1 })
 
-          marker.addListener('click', function() {
-            let infowindow = new google.maps.InfoWindow({
-                content: desc
-              });              
-            infowindow.open(map, marker);
-          });
+            let marker = new google.maps.Marker({
+                position: { lat: response.features[i].geometry.coordinates[1], lng: response.features[i].geometry.coordinates[0] },
+                map: map,
+                title: response.features[i].properties.desc,
+                content: response.features[i].properties.desc,
+                animation: google.maps.Animation.DROP,
+                icon: crimeIcons(response.features[i].properties.type),
+                draggable: false,
+                opacity: .7
+            });
 
-        marker.setMap(map);
+            let desc = textFormatter(response.features[i].properties.desc)
+
+            marker.addListener('click', function () {
+                let infowindow = new google.maps.InfoWindow({
+                    content: desc
+                });
+                infowindow.open(map, marker);
+            });
+            markers.push(marker)
         }
         var heatmap = new google.maps.visualization.HeatmapLayer({
             data: heatmapData,
             radius: 150,
             opacity: .35
-          });
-          heatmap.setMap(map);
-    })
-}
-
-//INITIAL OPEN CRIME API w/ AJAX Call for first time load. 
-
-let crimeLocation = "lat=41.8817767&lon=-87.6393348";
-let queryURL = "https://opendata.mybluemix.net/crimes?" + crimeLocation + "&radius=500";
-$.ajax({
-    url: queryURL,
-    method: "GET"
-}).then(function (response) {
-    let heatmapData = []
-
-    for (i = 0; i < 10; i++) {
-        console.log(response.features[i].properties.type);
-        console.log(response.features[i]);
-        console.log(response.features[i].geometry.coordinates[0]);
-        console.log(response.features[i].geometry.coordinates[1]);
-
-        heatmapData.push({location: new google.maps.LatLng(response.features[i].geometry.coordinates[1], response.features[i].geometry.coordinates[0]), weight: 1})
-
-        // $(".crime").append(` ${response.features[i].geometry.coordinates}, ${response.features[i].properties.desc},  ${response.features[i].properties.type} <br>`)
-        // console.log(response.features[i].properties.desc);
-
-        $(".table").prepend(`
-        <tr>
-        <th scope="row">${response.features[i].properties.type}</th>
-        <td><img src=${crimeIcons(response.features[i].properties.type)}></td>
-        <td>${textFormatter(response.features[i].properties.desc)}</td>
-        </tr>
-        `);
-
-        let marker = new google.maps.Marker({
-            position: { lat: response.features[i].geometry.coordinates[1], lng: response.features[i].geometry.coordinates[0] },
-            map: map,
-            title: response.features[i].properties.desc,
-            content: response.features[i].properties.desc,
-            animation: google.maps.Animation.DROP,
-            icon: crimeIcons(response.features[i].properties.type),
-            draggable: false,
-            opacity: .7
         });
-
-        let desc = textFormatter(response.features[i].properties.desc)
-
-          marker.addListener('click', function() {
-            let infowindow = new google.maps.InfoWindow({
-                content: desc
-              });              
-            infowindow.open(map, marker);
-          });
-
-        marker.setMap(map);
-
-        
-    };
-    var heatmap = new google.maps.visualization.HeatmapLayer({
-        data: heatmapData,
-        radius: 150,
-        opacity: .35
-      });
-      heatmap.setMap(map);
-});
-
-
+        heatmaps.push(heatmap);
+        //heatmap.setMap(map);
+        for(i = 0; i < markers.length; i++){
+            markers[i].setMap(map)
+        }
+        for(i = 0; i < heatmaps.length; i++){
+            heatmaps[i].setMap(map)
+        }
+    })
+    
+}
 
 //Switch statement for assigning crime icons to Ajax call codes
 function crimeIcons(crimeID) {
@@ -262,7 +219,7 @@ function crimeIcons(crimeID) {
     }
 }
 
-function textFormatter(desc){
+function textFormatter(desc) {
 
     return desc.replace(">", " (") + ")";
 
@@ -321,6 +278,18 @@ database.ref("/users").on("child_added", function (snapshot) {
     $("#danger-display").text(sv.danger);
     $("#comment-display").text(sv.comment);
 
+    //for the Review table
+    $(".review").append(`
+      <tr>
+      <th scope="row">${sv.name}</th>
+      <td>${sv.place}</td>
+      <td>${sv.food}</td>
+      <td>${sv.danger}</td>
+      <td>${sv.comment}</td>
+      
+  </tr>
+`);
+
     // Handle the errors
 }, function (errorObject) {
     console.log("Errors handled: " + errorObject.code);
@@ -332,3 +301,22 @@ $("#place-display").text(localStorage.getItem("place"));
 $("#food-display").text(localStorage.getItem("food"));
 $("#danger-display").text(localStorage.getItem("danger"));
 $("#comment-display").text(localStorage.getItem("comment"));
+
+
+//Link to grap values, add to the A tag and load into mailer.
+$("#mailer").click(function () {
+    let name = $("#name").val();
+    let message = $("#message").val();
+    let email = $("#inputEmail").val();
+    $(this).attr("href", `mailto:joepathetic@yahoo.com?subject=${name}&body=${message}<br> From: ${email}`)
+});
+//navbar scroll
+$(document).ready(function () {
+    $(window).on('scroll', function () {
+        if (Math.round($(window).scrollTop()) > 100) {
+            $('.navbar').addClass('scrolled');
+        } else {
+            $('.navbar').removeClass('scrolled');
+        }
+    })
+})
