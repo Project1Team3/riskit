@@ -193,6 +193,8 @@
 .card-header {
   font-family: 'Pacifico', cursive;
   color: #D1001F;
+  font-size: 24px;
+  
 }
 
 .form-group {
@@ -210,4 +212,9 @@
   background-color:#D1001F;
   border-color: #D1001F;
 
+}
+
+h1.table-head {
+  font-family: 'Pacifico', cursive;
+  color: #D1001F;
 }
