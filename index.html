@@ -1,126 +1,118 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Risk It for the Biscuit!</title>
+    <title>Risk It for the Biscuit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Pacifico|Quicksand|Yanone+Kaffeesatz" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Pacifico|Yanone+Kaffeesatz" rel="stylesheet">
 </head>
 
 <body>
 
-    
     <header>
-        <nav class="navbar navbar-light bg-light">
-          
-        <div class="navbar">
-          <ul class="nav">
-            <li class="item">
-              <a href="#" class="home">Home</a>
-            </li>
-  
-            <li class="item">
-              <a href="#" class="locations">Locations</a>
-            </li>
-  
-            <li class="item">
-              <a href="#" class="about">About</a>
-            </li>
-  
-            <li class="item">
-              <a href="#" class="contact">Contact</a>
-            </li>
-          </ul>
-  
-         
+
+        <div class="container-fluid justify-content-end">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="review.html">Submit A Review</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                    </ul>
+                    <span class="navbar-text">
+                        Risk It For The Biscuit!
+                    </span>
+                </div>
+            </nav>
+
         </div>
-        </nav>
-      </header>
-<!--Begin Jumbotron header-->
 
 
-        <div class="jumbotron">
-                <div class="container" style="height: 600px;">
-                  <div class="header">
-                  <h1 class="display-4">Risk it for the Biscuit!</h1>
-                  </div>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <p class="lead">
-                    A<br>
-                    dynamic <br>
-                    restaurant<br>
-                    locator</p>
-                </div>
-              </div>
+    </header>
 
-
-<!-- Search form -->
-<div class="container">
-    <h5>Search Zip Codes Here!</h5>
-    <div class="row">
-        <div class="col-12">
-            <div class="input-group">
-                <input class="form-control border-secondary py-2" type="search" value="search">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container-fluid" style="height: 600px;">
+            <div class="header">
+                <h1 class="display-4">Risk it for the Biscuit!</h1>
             </div>
+            <br>
+            <br>
+            <br>
+            <h4 class="lead">
+                A<br>
+                dynamic <br>
+                crime-spotter<br>
+                around your<br>
+                favorite<br>
+                places
+                </h4>
+
+
         </div>
     </div>
-</div>
+    </div>
+    </div>
 
+    <div id="map"></div>
 
-<!--columns to load data, easily edited if needed-->  
-        
-<div class="container">
+    <div class="container-fluid">
+        <h5>Search Zip Codes Here!</h5>
         <div class="row">
-            <div class="col-sm-6">
-                <div class="map">
-               <p class="column-1">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum rhoncus justo, eu malesuada turpis consectetur et. Phasellus convallis aliquam nisi, ac ullamcorper diam lobortis ut. Integer feugiat posuere consectetur. Sed eleifend arcu urna, non condimentum lectus pulvinar non. Suspendisse viverra maximus erat, non tincidunt leo pharetra rhoncus. Morbi fringilla commodo faucibus. Pellentesque luctus ultricies nulla. Aenean a justo sapien. In feugiat mi non tincidunt tincidunt.</p>
+            <div class="col-12">
+                <div class="input-group">
+                    <input class="form-control border-secondary py-2 zipinput" id="submit" type="search" placeholder="Enter Zip Code Here">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary zipbutton" type="button">
+                            <i class="fa fa-search">Search</i>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="crime">
-
-                
-            <p class="column-2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum rhoncus justo, eu malesuada turpis consectetur et. Phasellus convallis aliquam nisi, ac ullamcorper diam lobortis ut. Integer feugiat posuere consectetur. Sed eleifend arcu urna, non condimentum lectus pulvinar non. Suspendisse viverra maximus erat, non tincidunt leo pharetra rhoncus. Morbi fringilla commodo faucibus. Pellentesque luctus ultricies nulla. Aenean a justo sapien. In feugiat mi non tincidunt tincidunt.</p>
-            </div>
-
         </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="crime">
-
-
-          <p class="column-2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum rhoncus justo, eu malesuada
-            turpis consectetur et. Phasellus convallis aliquam nisi, ac ullamcorper diam lobortis ut. Integer feugiat
-            posuere consectetur. Sed eleifend arcu urna, non condimentum lectus pulvinar non. Suspendisse viverra
-            maximus erat, non tincidunt leo pharetra rhoncus. Morbi fringilla commodo faucibus. Pellentesque luctus
-            ultricies nulla. Aenean a justo sapien. In feugiat mi non tincidunt tincidunt.</p>
-        </div>
-      </div>
     </div>
-  </div>
 
+    <div class="crime"></div>
+
+    <table class="table crimeTable container-fluid">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Crime Spotted!</th>
+                <th scope="col">Crime Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+
+            </tr>
+        </tbody>
+    </table>
+
+
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places,visualization&key=AIzaSyBRfH-akxcws7hTE9M8Kyd9M0AJAQ1A8Aw"></script>
+    <script src="assets/javascript/app.js"></script>
 </body>
-
-<script src="assets/javascript/app.js"></script>
 
 </html>

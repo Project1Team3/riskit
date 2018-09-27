@@ -1,8 +1,11 @@
-    
-    /* Always set the map height explicitly to define the size of the div
+/* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
        #map {
-        height: 100%;
+        height: 35%;
+        width: 100%;
+        margin: 10px;
+        border: solid 3px red;
+        border-radius: 5px;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -10,7 +13,6 @@
         margin: 0;
         padding: 0;
       }
-
 
       *{
         box-sizing: border-box;
@@ -50,7 +52,8 @@
         width: 100%;
         transition: 0.5s ease;
         color: #D1001F;
-        font-family: 'Quicksand', sans-serif;
+        color: grey;
+        opacity: 0.4;
       }
       
       .navbar .nav {
@@ -58,7 +61,9 @@
         padding: 0;
         display: inline-block;
         margin-right: 5%;
+        font-family: 'Quicksand', sans-serif;
       }
+
       
       .navbar .nav .item {
         list-style: none;
@@ -84,12 +89,7 @@
         text-decoration: none;
         color: inherit;
       }
-      
     
-      
-      .navbar .logo img {
-        display: none;
-      }
       
       .scrolled {
        transition: 0.5s ease;
@@ -99,7 +99,6 @@
         height: 50px; 
         background-color: rgba(0, 0, 0, 0.1);
         transition: 0.5s ease;
-      
       }
       
       
@@ -116,19 +115,18 @@
         border-radius: 2px;
         transition: 0.5s ease;
       }
-      
-    
 
+      .navbar-text {
+        font-family: 'Pacifico', cursive;
+      }
 
       .jumbotron {
         background-image: url("https://static1.wikia.nocookie.net/foodtruck/images/5/50/Wiki-background");
-        background-repeat: no-repeat;
+        background-repeat: repeat;
         background-size: cover;
     
     }
 
-   
-    
     .display-4 { 
         font-family: 'Pacifico', cursive;
         color: #D1001F;
@@ -147,7 +145,7 @@
         
     }
 
-    p.lead {
+    h4.lead {
         font-family: 'Bungee Shade', cursive;
         color: white;
         outline-color: white;
@@ -158,18 +156,58 @@
        
     
     }
-    
-   
 
   .col-12 {
       padding: 40px;
       width: 60px;
   }
-        
-    
-<<<<<<< HEAD
-    
-=======
-    }
+  
+  h5.crime-header {
+    font-family: 'Pacifico', cursive;
+    color: #D1001F;
+  }
 
->>>>>>> 012aef5304cb9922e2dec99f3a99c435cb9c92ad
+  .knockout {
+    font-family: 'Pacifico', cursive;
+    color: #D1001F;
+  }
+
+  .btn-primary {
+    background-color: grey;
+    border-color:grey;
+    
+  }
+
+  .btn-primary:hover {
+    background-color:#D1001F;
+    border-color: #D1001F;
+
+  }
+
+  h1.knockout2 {
+    font-family: 'Pacifico', cursive;
+    color: #D1001F;
+  }
+
+
+.card-header {
+  font-family: 'Pacifico', cursive;
+  color: #D1001F;
+}
+
+.form-group {
+  font-family: 'Quicksand', sans-serif;
+}
+ 
+
+.btn-danger {
+  background-color: grey;
+  border-color:grey;
+
+}
+
+.btn-danger:hover {
+  background-color:#D1001F;
+  border-color: #D1001F;
+
+}
