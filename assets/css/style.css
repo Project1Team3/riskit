@@ -51,9 +51,7 @@
         height: 80px;
         width: 100%;
         transition: 0.5s ease;
-        color: #D1001F;
-        font-family: 'Quicksand', sans-serif;
-        color: grey;
+        color:red;
         opacity: 0.4;
       }
       
@@ -62,7 +60,10 @@
         padding: 0;
         display: inline-block;
         margin-right: 5%;
+        font-family: 'Quicksand', sans-serif;
+        
       }
+
       
       .navbar .nav .item {
         list-style: none;
@@ -88,12 +89,7 @@
         text-decoration: none;
         color: inherit;
       }
-      
     
-      
-      .navbar .logo img {
-        display: none;
-      }
       
       .scrolled {
        transition: 0.5s ease;
@@ -103,7 +99,6 @@
         height: 50px; 
         background-color: rgba(0, 0, 0, 0.1);
         transition: 0.5s ease;
-      
       }
       
       
@@ -120,19 +115,18 @@
         border-radius: 2px;
         transition: 0.5s ease;
       }
-      
-    
 
+      .navbar-text {
+        font-family: 'Pacifico', cursive;
+      }
 
       .jumbotron {
         background-image: url("https://static1.wikia.nocookie.net/foodtruck/images/5/50/Wiki-background");
-        background-repeat: no-repeat;
+        background-repeat: repeat;
         background-size: cover;
     
     }
 
-   
-    
     .display-4 { 
         font-family: 'Pacifico', cursive;
         color: #D1001F;
@@ -162,15 +156,65 @@
        
     
     }
-    
-   
 
   .col-12 {
       padding: 40px;
       width: 60px;
   }
-        
+  
+  h5.crime-header {
+    font-family: 'Pacifico', cursive;
+    color: #D1001F;
+  }
 
+  .knockout {
+    font-family: 'Pacifico', cursive;
+    color: #D1001F;
+  }
+
+  .btn-primary {
+    background-color: grey;
+    border-color:grey;
+    
+  }
+
+  .btn-primary:hover {
+    background-color:#D1001F;
+    border-color: #D1001F;
+
+  }
+
+  h1.knockout2 {
+    font-family: 'Pacifico', cursive;
+    color: #D1001F;
+  }
+
+
+.card-header {
+  font-family: 'Pacifico', cursive;
+  color: #D1001F;
+  font-size: 24px;
+
+}
+
+.form-group {
+  font-family: 'Quicksand', sans-serif;
+}
  
 
-  
+.btn-danger {
+  background-color: grey;
+  border-color:grey;
+
+}
+
+.btn-danger:hover {
+  background-color:#D1001F;
+  border-color: #D1001F;
+
+}
+
+h1.table-head {
+  font-family: 'Pacifico', cursive;
+  color: #D1001F;
+}
