@@ -21,6 +21,7 @@ let knotIcon = "assets/images/knottemplate.png"
 
 
 //Loads the Map screen w/ places request for Bars, Restaurants, Club and Pubs.
+//Creates internal controls for markers
 function initialize() {
     let center = new google.maps.LatLng(41.8817767, -87.6393348);
     map = new google.maps.Map(document.getElementById('map'), {
@@ -29,12 +30,24 @@ function initialize() {
     });
 
     //Creation of Custom Buttons Inside the Map
-    let centerControlDiv = document.createElement('div');
-    let centerControl = new CenterControl(centerControlDiv, map);
+    let hideControlDiv = document.createElement('div');
+    let showControlDiv = document.createElement('div');
+    let removeControlDiv = document.createElement('div');
+    let centerControl = new CenterControl(hideControlDiv, map);
+    let showControl = new CenterControl2(showControlDiv, map);
+    let removeControl = new CenterControl3(removeControlDiv, map);
     
 
-    centerControlDiv.index = 1;
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+    hideControlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(hideControlDiv);
+
+    showControlDiv.index = 2;
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(showControlDiv);
+
+    removeControlDiv.index = 3;
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(removeControlDiv);
+
+    
 
     //Google Places for Bars and Restaurants
     request = {
@@ -86,6 +99,102 @@ function deleteMarkers() {
     }
     heatmaps = [];
     crimeID = [];
+}
+
+//functions for Map Button Controls
+function CenterControl(controlDiv, map) {
+
+    // Set CSS for the control border.
+    var controlUI = document.createElement('div');
+    controlUI.style.backgroundColor = '#fff';
+    controlUI.style.border = '2px solid #fff';
+    controlUI.style.borderRadius = '3px';
+    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.marginBottom = '22px';
+    controlUI.style.textAlign = 'center';
+    controlUI.title = 'Click to Hide Markers';
+    controlDiv.appendChild(controlUI);
+
+    // Set CSS for the control interior.
+    var controlText = document.createElement('div');
+    controlText.style.color = 'rgb(25,25,25)';
+    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+    controlText.style.fontSize = '16px';
+    controlText.style.lineHeight = '38px';
+    controlText.style.paddingLeft = '5px';
+    controlText.style.paddingRight = '5px';
+    controlText.innerHTML = 'Hide Markers';
+    controlUI.appendChild(controlText);
+
+    // Setup the click event listeners: simply set the map to Chicago.
+    controlUI.addEventListener('click', function () {
+        clearMarkers();
+    });
+
+}
+
+function CenterControl2(controlDiv, map) {
+
+    // Set CSS for the control border.
+    var controlUI = document.createElement('div');
+    controlUI.style.backgroundColor = '#fff';
+    controlUI.style.border = '2px solid #fff';
+    controlUI.style.borderRadius = '3px';
+    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.marginBottom = '22px';
+    controlUI.style.textAlign = 'center';
+    controlUI.title = 'Click to Show Markers';
+    controlDiv.appendChild(controlUI);
+
+    // Set CSS for the control interior.
+    var controlText = document.createElement('div');
+    controlText.style.color = 'rgb(25,25,25)';
+    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+    controlText.style.fontSize = '16px';
+    controlText.style.lineHeight = '38px';
+    controlText.style.paddingLeft = '5px';
+    controlText.style.paddingRight = '5px';
+    controlText.innerHTML = 'Show Markers';
+    controlUI.appendChild(controlText);
+
+    // Setup the click event listeners: simply set the map to Chicago.
+    controlUI.addEventListener('click', function () {
+        showMarkers();
+    });
+
+}
+
+function CenterControl3(controlDiv, map) {
+
+    // Set CSS for the control border.
+    var controlUI = document.createElement('div');
+    controlUI.style.backgroundColor = '#fff';
+    controlUI.style.border = '2px solid #fff';
+    controlUI.style.borderRadius = '3px';
+    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.marginBottom = '22px';
+    controlUI.style.textAlign = 'center';
+    controlUI.title = 'Click to Remove Markers';
+    controlDiv.appendChild(controlUI);
+
+    // Set CSS for the control interior.
+    var controlText = document.createElement('div');
+    controlText.style.color = 'rgb(25,25,25)';
+    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+    controlText.style.fontSize = '16px';
+    controlText.style.lineHeight = '38px';
+    controlText.style.paddingLeft = '5px';
+    controlText.style.paddingRight = '5px';
+    controlText.innerHTML = 'Remove All';
+    controlUI.appendChild(controlText);
+
+    // Setup the click event listeners: simply set the map to Chicago.
+    controlUI.addEventListener('click', function () {
+        deleteMarkers();
+    });
 }
 
 function callback(results, status) {
@@ -332,36 +441,5 @@ $(document).ready(function () {
     })
 })
 
-//functions for Map Button Controls
-function CenterControl(controlDiv, map) {
 
-    // Set CSS for the control border.
-    var controlUI = document.createElement('div');
-    controlUI.style.backgroundColor = '#fff';
-    controlUI.style.border = '2px solid #fff';
-    controlUI.style.borderRadius = '3px';
-    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-    controlUI.style.cursor = 'pointer';
-    controlUI.style.marginBottom = '22px';
-    controlUI.style.textAlign = 'center';
-    controlUI.title = 'Click to Hide Markers';
-    controlDiv.appendChild(controlUI);
-
-    // Set CSS for the control interior.
-    var controlText = document.createElement('div');
-    controlText.style.color = 'rgb(25,25,25)';
-    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-    controlText.style.fontSize = '16px';
-    controlText.style.lineHeight = '38px';
-    controlText.style.paddingLeft = '5px';
-    controlText.style.paddingRight = '5px';
-    controlText.innerHTML = 'Hide Markers';
-    controlUI.appendChild(controlText);
-
-    // Setup the click event listeners: simply set the map to Chicago.
-    controlUI.addEventListener('click', function () {
-        clearMarkers();
-    });
-
-}
 
