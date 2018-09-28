@@ -196,6 +196,28 @@ function CenterControl3(controlDiv, map) {
         deleteMarkers();
     });
 }
+function clearMarkers(){
+    for(i = 0; i < markers.length; i++){
+        markers[i].setMap(null);
+    }
+
+}
+function showMarkers() {
+    for(i = 0; i < markers.length; i++){
+        markers[i].setMap(map);
+    }
+  }
+
+  // Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+    clearMarkers();
+    markers = [];
+    for(i = 0; i < heatmaps.length; i++){
+        heatmaps[i].setMap(null)
+    }
+    heatmaps = [];
+    crimeID = [];
+  }
 
 function callback(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -259,7 +281,6 @@ function marker(queryURL) {
     }).then(function (response) {
         /*response.features.length*/
         var heatmapData = []
-
         for (i = 0; i < 50; i++) {
             console.log(response.features[i]);
             console.log(response.features[i].geometry.coordinates[0]);
