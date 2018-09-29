@@ -7,6 +7,7 @@ var service;
 var markers = [];
 var heatmaps = [];
 var crimeID = [];
+let chicago = { lat: 41.8817767, lng: -87.6393348 };
 
 //VARs for all the crime icons
 let robberyIcon = "assets/images/robbery.png";
@@ -18,14 +19,37 @@ let skullIcon = "assets/images/pirates.png"
 let knotIcon = "assets/images/knottemplate.png"
 
 
+
 //Loads the Map screen w/ places request for Bars, Restaurants, Club and Pubs.
+//Creates internal controls for markers
 function initialize() {
-    var center = new google.maps.LatLng(41.8817767, -87.6393348);
+    let center = new google.maps.LatLng(41.8817767, -87.6393348);
     map = new google.maps.Map(document.getElementById('map'), {
         center: center,
         zoom: 18
     });
 
+    //Creation of Custom Buttons Inside the Map
+    let hideControlDiv = document.createElement('div');
+    let showControlDiv = document.createElement('div');
+    let removeControlDiv = document.createElement('div');
+    let centerControl = new CenterControl(hideControlDiv, map);
+    let showControl = new CenterControl2(showControlDiv, map);
+    let removeControl = new CenterControl3(removeControlDiv, map);
+    
+
+    hideControlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(hideControlDiv);
+
+    showControlDiv.index = 2;
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(showControlDiv);
+
+    removeControlDiv.index = 3;
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(removeControlDiv);
+
+    
+
+    //Google Places for Bars and Restaurants
     request = {
         location: center,
         radius: 30000,
@@ -52,7 +76,125 @@ function initialize() {
         marker(queryURL)
         service.nearbySearch(request, callback);
     })
-    
+
+}
+function clearMarkers() {
+    for (i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+
+}
+function showMarkers() {
+    for (i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+    }
+}
+
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+    clearMarkers();
+    markers = [];
+    for (i = 0; i < heatmaps.length; i++) {
+        heatmaps[i].setMap(null)
+    }
+    heatmaps = [];
+    crimeID = [];
+}
+
+//functions for Map Button Controls
+function CenterControl(controlDiv, map) {
+
+    // Set CSS for the control border.
+    var controlUI = document.createElement('div');
+    controlUI.style.backgroundColor = '#fff';
+    controlUI.style.border = '2px solid #fff';
+    controlUI.style.borderRadius = '3px';
+    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.marginBottom = '22px';
+    controlUI.style.textAlign = 'center';
+    controlUI.title = 'Click to Hide Markers';
+    controlDiv.appendChild(controlUI);
+
+    // Set CSS for the control interior.
+    var controlText = document.createElement('div');
+    controlText.style.color = 'rgb(25,25,25)';
+    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+    controlText.style.fontSize = '16px';
+    controlText.style.lineHeight = '38px';
+    controlText.style.paddingLeft = '5px';
+    controlText.style.paddingRight = '5px';
+    controlText.innerHTML = 'Hide Markers';
+    controlUI.appendChild(controlText);
+
+    // Setup the click event listeners: simply set the map to Chicago.
+    controlUI.addEventListener('click', function () {
+        clearMarkers();
+    });
+
+}
+
+function CenterControl2(controlDiv, map) {
+
+    // Set CSS for the control border.
+    var controlUI = document.createElement('div');
+    controlUI.style.backgroundColor = '#fff';
+    controlUI.style.border = '2px solid #fff';
+    controlUI.style.borderRadius = '3px';
+    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.marginBottom = '22px';
+    controlUI.style.textAlign = 'center';
+    controlUI.title = 'Click to Show Markers';
+    controlDiv.appendChild(controlUI);
+
+    // Set CSS for the control interior.
+    var controlText = document.createElement('div');
+    controlText.style.color = 'rgb(25,25,25)';
+    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+    controlText.style.fontSize = '16px';
+    controlText.style.lineHeight = '38px';
+    controlText.style.paddingLeft = '5px';
+    controlText.style.paddingRight = '5px';
+    controlText.innerHTML = 'Show Markers';
+    controlUI.appendChild(controlText);
+
+    // Setup the click event listeners: simply set the map to Chicago.
+    controlUI.addEventListener('click', function () {
+        showMarkers();
+    });
+
+}
+
+function CenterControl3(controlDiv, map) {
+
+    // Set CSS for the control border.
+    var controlUI = document.createElement('div');
+    controlUI.style.backgroundColor = '#fff';
+    controlUI.style.border = '2px solid #fff';
+    controlUI.style.borderRadius = '3px';
+    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.marginBottom = '22px';
+    controlUI.style.textAlign = 'center';
+    controlUI.title = 'Click to Remove Markers';
+    controlDiv.appendChild(controlUI);
+
+    // Set CSS for the control interior.
+    var controlText = document.createElement('div');
+    controlText.style.color = 'rgb(25,25,25)';
+    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+    controlText.style.fontSize = '16px';
+    controlText.style.lineHeight = '38px';
+    controlText.style.paddingLeft = '5px';
+    controlText.style.paddingRight = '5px';
+    controlText.innerHTML = 'Remove All';
+    controlUI.appendChild(controlText);
+
+    // Setup the click event listeners: simply set the map to Chicago.
+    controlUI.addEventListener('click', function () {
+        deleteMarkers();
+    });
 }
 function clearMarkers(){
     for(i = 0; i < markers.length; i++){
@@ -139,7 +281,6 @@ function marker(queryURL) {
     }).then(function (response) {
         /*response.features.length*/
         var heatmapData = []
-        
         for (i = 0; i < 50; i++) {
             console.log(response.features[i]);
             console.log(response.features[i].geometry.coordinates[0]);
@@ -182,14 +323,14 @@ function marker(queryURL) {
         });
         heatmaps.push(heatmap);
         //heatmap.setMap(map);
-        for(i = 0; i < markers.length; i++){
+        for (i = 0; i < markers.length; i++) {
             markers[i].setMap(map)
         }
-        for(i = 0; i < heatmaps.length; i++){
+        for (i = 0; i < heatmaps.length; i++) {
             heatmaps[i].setMap(map)
         }
     })
-    
+
 }
 
 //Switch statement for assigning crime icons to Ajax call codes
@@ -320,3 +461,6 @@ $(document).ready(function () {
         }
     })
 })
+
+
+
