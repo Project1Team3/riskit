@@ -281,10 +281,17 @@ function marker(queryURL) {
     }).then(function (response) {
         /*response.features.length*/
         var heatmapData = []
+        
         for (i = 0; i < 50; i++) {
+            let compnos = response.features[i].properties.compnos
             console.log(response.features[i]);
             console.log(response.features[i].geometry.coordinates[0]);
             console.log(response.features[i].geometry.coordinates[1]);
+            
+            //screens to see if marker already exists. If not, it add to map
+            if(crimeID.includes(compnos) === false){
+                
+                crimeID.push(compnos);
             $(".crimeTable").prepend(`
         <tr>
         <th scope="row">${response.features[i].properties.type}</th>
@@ -316,6 +323,7 @@ function marker(queryURL) {
             });
             markers.push(marker)
         }
+    }
         var heatmap = new google.maps.visualization.HeatmapLayer({
             data: heatmapData,
             radius: 150,
